@@ -8,7 +8,7 @@ This repository contains course material for the MSMI summer bootcamp. See the s
 
 ## Intro to R
 
-* [Lecture slides](https://github.com/lbdeoliveira/MSMI_Bootcamp/tree/main/slides)
+* [Lecture slides](https://github.com/lbdeoliveira/MSMI_Bootcamp/blob/main/slides/Introduction%20to%20R.pdf)
 * [R Script](https://github.com/lbdeoliveira/MSMI_Bootcamp/blob/main/Intro%20to%20R.R)
 * [Data](https://github.com/lbdeoliveira/MSMI_Bootcamp/tree/main/data)
 
