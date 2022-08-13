@@ -902,8 +902,9 @@ head(iris.subset)</code></pre>
 original dataframe but only for observations pertaining to the
 “Virginica” variety. We could filter out irrelevant rows by using the
 <code>subset()</code> function built into R.</p>
-<p>Note that there are many, many ways of doing this. I’m just
-presenting the one I find to be easiest to learn.</p>
+<p>Note that there are <a href="https://www.statmethods.net/management/subset.html">many ways of
+doing this</a>. I’m just presenting the one I find to be easiest to
+learn.</p>
 <pre class="r"><code>iris.virginica &lt;- subset(iris.data,
                          variety == &quot;Virginica&quot;)
 head(iris.virginica)</code></pre>
