@@ -204,14 +204,16 @@ print(mean(x))
 getwd()
 
 # Changing/setting your working directory
-# absolute_path = "/Users/lucasdeoliveira/Documents/MSMI_Bootcamp/data"
-relative_path = './data'
-setwd(relative_path)
-getwd() # print working directory
-setwd('..')  # go "up" a folder in the directory (previous folder)
+absolute_path = "/Users/lucasdeoliveira/Documents/MSMI_Bootcamp/data"
+setwd(absolute_path)
+getwd()
+# relative_path = './data'
+# setwd(relative_path)
+# getwd() # print working directory
+# setwd('..')  # go "up" a folder in the directory (previous folder)
 
 # Reading in CSV file
-iris.data = read.csv("data/iris.csv")
+iris.data = read.csv("iris.csv")
 
 # Display first 6 rows of data
 head(iris.data)
@@ -244,7 +246,7 @@ head(iris.subset)
 
 
 # Selecting rows
-iris.virginica <- subset(iris.data,
+iris.virginica <- subset(iris.data, 
                          variety == "Virginica")
 head(iris.virginica)
 tail(iris.virginica)
@@ -253,6 +255,18 @@ tail(iris.virginica)
 # Subset on multiple filtering conditions
 iris.subset <- subset(iris.data,
                       (variety == "Virginica") & (petal.length >= 6))
+head(iris.subset)
+tail(iris.subset)
+
+
+# Subset for Virginica or Setosa
+iris.subset <- subset(iris.data,
+                      (variety == "Virginica") | (variety == "Setosa"))
+head(iris.subset)
+tail(iris.subset)
+
+iris.subset <- subset(iris.data,
+                      variety %in% c("Virginica", "Setosa"))
 head(iris.subset)
 tail(iris.subset)
 
@@ -285,7 +299,7 @@ head(iris.data)
 
 
 # Saving a data frame to a CSV File
-write.csv(ex.df, "data/example_df.csv", row.names=FALSE)
+write.csv(ex.df, "example_df.csv", row.names=FALSE)
 
 
 # Exercises
@@ -301,6 +315,69 @@ write.csv(ex.df, "data/example_df.csv", row.names=FALSE)
 # 9. Repeat **8** but include the additional filtering condition that `hp` must be greater than or equal to 100. Save this subset to a variable called `vroom_vroom`.
 # 10. Write the data frame `vroom_vroom` to a CSV file with a name of your choosing.
 
-## Add example of data type conversion
 
+# ANSWERS (SPOILER ALERT) -----------------------------------------
+
+
+# 1. Load the `cars.csv` file found in the data folder into a data frame 
+#    variable called `cars`.
+cars <- read.csv("cars.csv")
+
+
+# 2. Inspect the first 6 rows of the `cars` data frame. What is the third 
+#    value under the column `cyl` (it's 4)?
+head(cars)
+
+
+# 3. Reassign the variable `cars` to a data frame containing all rows and 
+#    columns of the `cars` data frame **except for** for the `model` column.
+cars.columns <- names(cars)    # extract column names into a vector
+print(cars.columns)            # print column names
+keep.cols <- cars.columns[2:ncol(cars)]  # subset names vector to exclude model (keep mpg onward)
+print(keep.cols)               # print to confirm done correctly
+cars <- cars[keep.cols]        # keep only columns in keep.cols
+
+
+# 4. Using only one line of code, print the value of the 12th observation 
+#    in the `cyl` column.
+print(cars$cyl[12])
+
+
+# 5. Calculate the mean of the `mpg` column. Print it out.
+mpg_mean = mean(cars$mpg)
+print(mpg_mean)
+
+
+# 6. Create a new column called `mpg.centered` which is a mean-centered 
+#    version of the `mpg` column.
+cars$mpg.centered <- cars$mpg - mpg_mean
+
+
+# 7. Subset the data frame for observations where the mpg is above the mean. 
+# option 1:
+subset(cars,
+       mpg.centered > 0)
+
+# option 2:
+subset(cars,
+       mpg > mpg_mean)
+
+
+# 8. Repeat **7** but only return the `mpg`, `cyl`, `hp`, and `wt` columns.
+subset(cars,
+       mpg > mpg_mean,
+       select = c("mpg", "cyl", "hp", "wt"))
+
+
+# 9. Repeat **8** but include the additional filtering condition that `hp` 
+#    must be greater than or equal to 100. Save this subset to a variable 
+#    called `vroom_vroom`.
+vroom_vroom = subset(cars,
+                     (mpg > mpg_mean) & (hp >= 100),
+                     select = c("mpg", "cyl", "hp", "wt"))
+
+
+# 10. Write the data frame `vroom_vroom` to a CSV file with a name of your 
+#     choosing.
+write.csv(vroom_vroom, "vroom.csv", row.names=FALSE)
 
