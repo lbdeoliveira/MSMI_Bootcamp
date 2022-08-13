@@ -10,6 +10,7 @@ print("Hello, world!")
 # Assigns text to variable msg
 msg = "Hello, world!"
 print(msg)
+msg
 
 # Reassign text to variable msg
 msg <- "Hola, mundo!"
@@ -20,6 +21,13 @@ msg <- "Good morning everyone"
 msg <- "It's nice to be here!"
 msg <- "Who wants some coffee?"
 print(msg)
+
+# Combine text using paste()
+msg1 <- "Good morning everyone"
+msg2 <- "It's nice to be here!"
+msg3 <- "Who wants some coffee?"
+print(paste(msg1, msg2, msg3))
+# cat(paste(msg1, msg2, msg3, sep='\n'))
 
 # Assign number 1 variable num
 num = 1
@@ -51,6 +59,7 @@ class(my.int)
 # How to declare integer type
 # option 1:
 my.int = 3
+class(my.int)
 my.int = as.integer(my.int)   # convert to integer
 print(class(my.int))
 
@@ -58,15 +67,15 @@ print(class(my.int))
 my.int = 3L
 print(class(my.int))
 
-# Logical data type
-true = TRUE
-class(true)
+# Logical data type (TRUE or FALSE)
+true.var = TRUE
+class(true.var)
 
 # Pop quiz: guess the value of a, b, c, and d:
-a = 3 < 4
-b = 5 >= 8
-c = "a" == "a"
-d = "a" != "b"
+a = 3 < 4          # < less than
+b = 5 >= 8         # >= greater than or equal to
+c = "a" == "a"     # == equals to
+d = "a" != "b"     # != not equal to
 print(paste('a:', a))
 print(paste('b:', b))
 print(paste('c:', c))
@@ -105,11 +114,12 @@ print(my.vec[8])
 
 # Slice vector
 # Take 3rd through 6th elements of vector
-three.thru.six <- my.vec[2:6]
+three.thru.six <- my.vec[3:6]
 print(three.thru.six)
 
 
-### Converting Data Types
+
+# Converting Data Types
 # `as.integer()`
 # `as.numeric()`
 # `as.character()`
@@ -128,6 +138,12 @@ print(3 + 3 * 2)
 
 # Grouped calculation
 print((3 + 3) * 2)
+
+# With variables
+x = 3
+y = 2
+print(x + x * y)
+print((x + x) * y)
 
 ### Logical Operations
 # Comparing two values:
@@ -151,6 +167,21 @@ print((x > 3) | (x < 4))
 
 # Logical operations on vectors
 print(c(1, 2, 3) >= c(3, 2, 1))
+c(1, 2, 3) >= c(3, 2, 1)
+
+# %in% operator
+x = 5
+print(x %in% c(1, 2, 4))
+print(x %in% c(3, 4, 5))
+
+x = 5L
+class(x)
+vec1 = c(1, 2, 4)
+class(vec1)
+vec2 = c(4, 5, 6)
+class(vec2)
+x %in% vec1
+x %in% vec2
 
 # Define the function
 add.one <- function(x) {
@@ -269,5 +300,7 @@ write.csv(ex.df, "data/example_df.csv", row.names=FALSE)
 # 8. Repeat **7** but only return the `mpg`, `cyl`, `hp`, and `wt` columns.
 # 9. Repeat **8** but include the additional filtering condition that `hp` must be greater than or equal to 100. Save this subset to a variable called `vroom_vroom`.
 # 10. Write the data frame `vroom_vroom` to a CSV file with a name of your choosing.
+
+## Add example of data type conversion
 
 
