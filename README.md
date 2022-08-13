@@ -1,2 +1,18 @@
 # MSMI_Bootcamp
-Materials for MSMI technical bootcamp
+
+Instructor: Lucas De Oliveira
+
+[Github](https://github.com/lbdeoliveira) | [LinkedIn](https://www.linkedin.com/in/lbdeoliveira)
+
+This repository contains course material for the MSMI summer bootcamp. See the sections below for links to the relevant course material.
+
+## Intro to R
+
+* [Lecture slides](https://www.google.com)
+* [R Script](https://www.google.com)
+* [R Markdown Notebook](https://www.google.com)
+* [Data](https://www.google.com)
+
+## Intro to Stats
+
+In progress!

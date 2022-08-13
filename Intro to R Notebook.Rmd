@@ -1,0 +1,619 @@
+---
+title: "Intro to R"
+author: "Lucas De Oliveira"
+date: "2022-08-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Introduction
+
+This R Markdown document is part of the course materials for the University of San Francisco's MSMI Bootcamp in R Programming. It is meant to serve as a reference document for students of the program for the concepts covered in lecture, and to introduce them to R Markdown as an academic and professional resource for statistical analysis and visualization.
+
+
+# What am I looking at?
+
+This is an R Markdown notebook. It allows us to easily combine code and text, which is really useful for analyses and technical communication.
+
+Let's take a look at an example. Below we'll print everyone's favorite first program.
+
+```{r}
+print("Hello, world!")
+```
+
+Note the console output under the code cell? This ability to interject thought and writing between chunks of code is a really useful tool that you'll soon grow to love. 
+
+Markdown itself has a very small learning curve. While we won't cover any Markdown in this notebook, here are some resources that should help you learn to craft great reports, homeworks, and analyses:
+
+* [Markdown guide](https://www.markdownguide.org/getting-started/)
+* [R Markdown cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+
+
+# R Programming Basics
+
+A program is nothing more than a sequence of commands that the computer executes in order. Below we cover the very basics of R programming in the hopes of laying down a foundation for future learning and exploration.
+
+
+## Variables
+
+A variable is an object in our code that can store information for later use and operation. Trust your instincts from algebra on this one.
+
+For instance, recall our previous code chunk that prints "Hello world!" to the console:
+
+```{r}
+print("Hello, world!")
+```
+
+Instead of directly printing the text, I can save the text to a variable called `msg` and then pass `msg` to the `print()` function:
+
+```{r}
+msg = "Hello, world!"
+print(msg)
+```
+
+
+Note that in R, we have two ways of assigning a value to a variable: using `=` or using `<-`. While `<-` is the old-school way of assigning in R, I'll probably lean more on `=` as it's more commonly used in other languages and it's easier to type.
+
+
+```{r}
+msg <- "Hola, mundo!"
+print(msg)
+```
+
+
+As you may have noticed above, we can *reassign* a variable to another value by either manually reassigning the variable to an explicit value or through some other operation.
+
+
+**Pop quiz question #1**
+
+What is the value of the variable `msg` after this code chunk runs?
+
+```{r}
+msg <- "Good morning everyone"
+msg <- "It's nice to be here!"
+msg <- "Who wants some coffee?"
+# print(msg)
+```
+
+
+Uncomment the print function above to check your answer.
+
+In the example above we changed the value of the variable `msg` by reassigning different text to it at each line. However, we can change the value of a variable by operating on the variable (technically, this is still a form of reassignment).
+
+In the code cell below, we assign the value 1 to variable `num` and confirm this by printing `num`.
+
+```{r}
+num = 1
+print(num)
+```
+
+Now, let's change the value of num by adding one to it.
+
+```{r}
+num = num + 1
+print(num)
+```
+
+
+Notice that we changed the value of `num` by setting it equal to itself plus 1. Don't let it hurt your brain! The way to think about this is is that we're adding 1 to the *value* of `num` (also 1) and reassigning that mathematical outcome (2) to the variable `num`.
+
+
+**Pop quiz question #2**
+
+What is the value of the variable `num` after this code chunk runs? (Uncomment last line and run code chunk to see the answer).
+
+```{r}
+num = 1
+num = num * 2
+num = num + 8
+num = num / 2
+# print(num)
+```
+
+
+See the same code chunk below with comments to help keep track of the value of num as the program executes.
+
+```{r}
+num = 1         # num = 1
+num = num * 2   # num = 1 * 2 = 2
+num = num + 8   # num = 2 + 8 = 10
+num = num / 2   # num = 10 / 2 = 5
+print(num)
+```
+
+
+### Naming variables
+
+Variables can contain letters, digits, underscores, or periods. In general, it is good form to name your variables as words that are easily interpreted by whoever is looking at your code.
+
+* Good variable names: `data`, `regression_model`, `cleaned.df`
+* Bad variable names: `df3`, `this.one`, `again`
+
+Some rules and guidelines:
+
+* Variables *should* start with letters
+* A decimal or underscore can be used to separate words; ex: `my.password` or `my_password`
+* Variables are case sensitive, so R interprets `myvar` and `myVar` as two different variables
+
+
+## Data Types
+
+### R Native Data Types
+
+Data types are additional information that the computer holds about data to know how it can operate on that data.
+
+While there are a few more data types native to R, we will only focus on the following:
+
+* `character`
+* `numeric`
+* `integer`
+* `logical`
+* `vector`
+* `data.frame` (covered later)
+
+To figure out what data type an object is, simply use the `class()` function as we'll illustrate below.
+
+
+**Character:**
+
+The `character` data type is what we refer to as **text data** (or strings in other programming languages). We want to represent data that is described in words as character data. Here's some character data which may look familiar...
+
+```{r}
+msg = "This is in fact text data. In R it's called character data. How nice!"
+class(msg)
+```
+
+
+**Numeric:**
+
+The `numeric` data type refers to what we call **decimals** (or floats in other programming languages).
+
+```{r}
+pi = 3.14
+class(pi)
+```
+
+
+**Integer:**
+
+The `integer` data type is self-explanatory. However, note that it is not the default data type assumed by R for numbers, even when an integer itself is passed.
+
+```{r}
+my.int = 3
+class(my.int)
+```
+
+
+In fact, R assumes that any number passed in is a `numeric` data type. If we want to force an `integer` data type we have two options:
+
+1. Convert to an integer using `as.integer()`
+2. Declare an integer using `L` (shown below)
+
+```{r}
+# option 1:
+my.int = 3
+my.int = as.integer(my.int)   # convert to integer
+print(class(my.int))
+
+# option 2:
+my.int = 3L
+print(class(my.int))
+```
+
+
+**Logical:**
+
+The logical data type consists of two values: `TRUE` and `FALSE`. This data type becomes very important for control structures (if X do Y) and subsetting.
+
+Here's an example of it in action:
+
+```{r}
+true = TRUE
+class(true)
+```
+
+
+Guess the value of variables a, b, c, and d below.
+
+```{r}
+a = 3 < 4
+b = 5 >= 8
+c = "a" == "a"
+d = "a" != "b"
+```
+
+
+Answer:
+
+```{r}
+print(paste('a:', a))
+print(paste('b:', b))
+print(paste('c:', c))
+print(paste('d:', d))
+```
+
+
+**Vector:**
+
+A vector can generally be thought of as a list of things - usually numbers, characters, or booleans (TRUE/FALSE). The important thing here it that it holds multiple values together, which empowers some amazing computations.
+
+Vectors can only hold objects of the same data type! When we call the `class()` function on a vector, it returns the data type of the objects it holds.
+
+```{r}
+num.vec <- c(1, 2, 3)
+print(class(num.vec))
+print(num.vec)
+```
+
+
+Below we see what happens when we try to define a vector with objects of different data types. R will coerce objects to a "lowest common denominator" or a data type that all of the items could conceivably take.
+
+
+```{r}
+my.vec <- c(1, 2, 'a')
+print(class(my.vec))
+print(my.vec)
+```
+
+
+We can more conveniently define **sequential integer** vectors as follows:
+
+```{r}
+sequential.vec <- 1:10
+print(class(sequential.vec))
+print(sequential.vec)
+```
+
+
+Finally, we can access the different individual elements in a vector by **subsetting** the vector using square brackets with the location or **index** of the item of interest.
+
+```{r}
+# Define and print vector
+my.vec <- 1:10
+print(my.vec)
+
+# Extract and print first item in vector
+first = my.vec[1]
+print('First item:')
+print(first)
+print(my.vec[1])
+
+# Print 8th item in vector
+print('8th item:')
+print(my.vec[8])
+```
+
+
+In addition, we can take a "slice" of a vector by using the `:` operator between the desired indices of the vector.
+
+```{r}
+# Take 3rd through 6th elements of vector
+three.thru.six <- my.vec[2:6]
+print(three.thru.six)
+```
+
+
+
+### Converting Data Types
+
+We'll cover this more in the data frames portion of the lecture. However, note that when it's possible, we can convert between different data types by using the `as.datatype()` family of functions:
+
+* `as.integer()`
+* `as.numeric()`
+* `as.character()`
+* `as.Date()`
+
+There are many more such functions. For now, be aware that they exist and that they come in handy! 
+
+
+## Basic Operations
+
+Below we discuss common operations that are crucial to doing work in R.
+
+
+### Mathematical Operations
+
+* `+` - addition
+* `-` - subtraction
+* `*` - multiplication 
+* `/` - division
+* `^` - exponentiation
+
+Just like in math, we can use parentheses to group terms together. (In fact, it's usually good practice to do this).
+
+```{r}
+3 + 3 * 2
+```
+
+
+```{r}
+(3 + 3) * 2
+```
+
+
+### Logical Operations
+
+Comparing two values:
+
+* `==` - equals
+* `!=` - does not equal
+* `<` - less than
+* `<=` - less than or equal to
+* `>` - greater than
+* `>=` - greater than or equal to
+* `&` - and
+* `|` - or
+* `%in%` - in
+
+These will always output `TRUE` or `FALSE` or a vector of trues and falses.
+
+```{r}
+c(1, 2, 3) >= c(3, 2, 1)
+```
+
+Logical operations are especially important for filtering (subsetting) data frames, which we'll discuss in depth below.
+
+
+## Functions
+
+Functions are ways in which we can create "mini-programs", or organize code that takes in an input and (usually) returns an output.
+
+We won't get into creating functions much, although I show you an example below. The important thing, is knowing that we can call a function, feed it some information, and it will do something pre-defined.
+
+Here is how you define a function in R:
+
+```{r}
+# Define the function
+add.one <- function(x) {
+  return(x+1)
+}
+# Example
+x = 5
+y = add.one(x)
+# Print results
+print(x)
+print(y)
+```
+
+
+While it is good practice to create your own functions as a way of organizing code. For this bootcamp, we are more concerned about *using* functions towards out analytic ends. Below is an example where we use the built-in function `mean()` to calculate the mean (average) of a vector of numbers.
+
+```{r}
+x = c(1, 2, 3)
+print(mean(x))
+```
+
+
+## Reading and Writing Files
+
+So far, we have discussed a lot of different things that we can do in R. However, all the data that we have worked with, we have defined in little examples. In the real world, we will usually have to read in data from a file, the internet, or a database.
+
+While we won't worry much about the last two options in this notebook, we will cover how to read a CSV file into a data frame in R and how to write an R data frame to a CSV file.
+
+
+### Working Directory
+
+Before we proceed to the mechanics of reading and writing files, it's really important that we talk about the **working directory**.
+
+The working directory refers to the folder in your computer file system that you are currently working in. R can automatically see all files in your working directory (as shown in the Files tab of the bottom right panel in RStudio); however, if you wish to load data from outside your current working directory, you will have to tell R where to look.
+
+Use the `getwd()` function to see your current working directory. Is it where you expected?
+
+```{r}
+getwd()
+```
+
+If not, you can use feed the **file path** of your target folder to the `setwd()` to change your working directory to the correct location.
+
+In the example below, I use what's called a *relative path* to go into the `data` folder in my current working directory. I included the absolute path to the data folder as well; however, note that this will be different for you (look at the output of the `getwd()` function above).
+
+```{r}
+# absolute_path = "/Users/lucasdeoliveira/Documents/MSMI_Bootcamp/data"
+relative_path = './data'
+setwd(relative_path)
+getwd() # print working directory
+```
+
+**Note: as the warning message above shows, you cannot not change the working directory in a code chunk in R Markdown.** Instead, you can pass the data file's relative path to the function reading in the data (more below) or you can use the `setwd()` in the console or in an R script.
+
+
+### Read in a CSV File
+
+We'll use the `read.csv()` function to read in a CSV file into a data frame below. We'll then use the `head()` function to display the first 6 rows of the data frame.
+
+```{r}
+iris.data = read.csv("data/iris.csv")
+head(iris.data)
+```
+
+
+Similarly, you can use the `tail()` function to disply the last 6 rows of data in your dataframe.
+
+```{r}
+tail(iris.data)
+```
+
+
+In the next section, we will further explore how to work with data frames as well as how to write them to CSV files!
+
+
+## Dataframes
+
+### The tidy data frame
+
+The tidy data frame is a philosophy around organizing data where each column of the data frame represents one variable/feature and each row in the data frame represents one observation. Combined, we should only have one single value (number, character, logical) in each cell of the data frame.
+
+
+### Creating a data frame
+
+Below, we quickly show how to create a data frame from scratch in R. 
+
+```{r}
+ex.df = data.frame(name=c("Betty", "Harry", "Susie", "Barry"),
+                   fav.food=c("Eggs", "Dairy", "Limes", "Berries"),
+                   age=c(14, 40, 24, 60))
+ex.df
+```
+
+Note that for the rest of this notebook, we will not be creating new data frames in R, but instead loading data from files into data frames. For the rest of this notebook, we'll return to the iris data frame we loaded in earlier.
+
+
+### Checking the dimension of the data frame
+
+Use the `nrow()` function to check the number of rows of a data frame and the `ncol()` function to check the number of columns of a data frame.
+
+```{r}
+print(nrow(iris.data))
+print(ncol(iris.data))
+```
+
+
+### Extracting column names
+
+To extract the column names of a data frame in a character vector, just use the `names()` function as shown below:
+
+```{r}
+iris.names <- names(iris.data)
+print(iris.names)
+```
+
+
+### Selecting columns
+
+We can select a specific column from the data frame by using the `$` operator followed by the column name. Here is an example where we extract the *variety* column from the iris dataset.
+
+```{r}
+iris.variety <- iris.data$variety
+iris.variety
+```
+
+
+As shown above, this return a vector for all values in the selected column. In the next section we discuss how to select multiple columns at once as well as how to to select certain rows from our data frame.
+
+
+### Subsetting data frames
+
+Often, we will want to only consider part of our data in our analysis. We can subset our data -- that is, only consider certain rows and certain columns that are of interest.
+
+
+**Selecting columns:**
+
+Below, we will subset only the `petal.length`, `petal.width`, and `variety` columns from the iris data frame.
+
+```{r}
+cols.of.interest = c("petal.length", "petal.width", "variety")
+iris.subset <- iris.data[cols.of.interest]
+head(iris.subset)
+```
+
+
+**Selecting rows:**
+
+Suppose instead that we were interested in all the columns of the original dataframe but only for observations pertaining to the "Virginica" variety. We could filter out irrelevant rows by using the `subset()` function built into R. 
+
+Note that there are many, many ways of doing this. I'm just presenting the one I find to be easiest to learn.
+
+```{r}
+iris.virginica <- subset(iris.data,
+                         variety == "Virginica")
+head(iris.virginica)
+```
+
+
+```{r}
+tail(iris.virginica)
+```
+
+
+Note that we can **subset rows on multiple filtering conditions.** Below, we'll use the `subset()` function to subset the iris data to consider only the virginica species where petal length is greater than or equal to 6.
+
+
+```{r}
+iris.subset <- subset(iris.data,
+                      (variety == "Virginica") & (petal.length >= 6))
+head(iris.subset)
+```
+
+```{r}
+tail(iris.subset)
+```
+
+**Subsetting both rows and columns simultaneously:**
+
+Suppose that we wanted to only look at the petal length, petal width, and variety for the Virginica species where petal width was less than 2. We could do so using the following code:
+
+```{r}
+iris.subset <- subset(iris.data,
+                      (variety == "Virginica") & (petal.width < 2), 
+                      select = c("petal.length", "petal.width", "variety"))
+head(iris.subset)
+```
+
+
+### Creating new variables (columns)
+
+We'll often want to create a new column in our data frame that is a function of other columns in our data frame. In this section, we'll run through some examples.
+
+**Ex 1:** create a new variable called `petal.width.mean` that contains the average value of the `petal.width` column.
+
+```{r}
+iris.data$petal.width.mean <- mean(iris.data$petal.width)
+print(head(iris.data))
+```
+
+
+**Ex 2:** create a column called `sepal.minus.petal` that is defined as the `sepal.length` minus the `petal.length`.
+
+```{r}
+iris.data$sepal.minus.petal <- iris.data$sepal.length - iris.data$petal.length
+head(iris.data)
+```
+
+
+**Ex 3:** mean-center the `petal.length` column; that is, define a new column called `petal.length.centered` that is defined as `petal.length` minus the mean of all values in the `petal.length` column
+
+```{r}
+mean.petal.length <- mean(iris.data$petal.length)
+iris.data$petal.length.centered <- iris.data$petal.length - mean.petal.length
+head(iris.data)
+```
+
+
+### Saving a data frame to a CSV File
+
+Suppose that we in the course of our analysis, we generated some data in a data frame that we would like to save in a CSV file for future use. We see how to write a data frame to a CSV file below using the example data frame from earlier `ex.df` (shown below):
+
+```{r}
+ex.df
+```
+
+
+In the following code chunk, we save ex.df to a CSV file called "example_df.csv" and save it to the data folder in our working directory.
+
+```{r}
+write.csv(ex.df, "data/example_df.csv", row.names=FALSE)
+```
+
+Check your data folder and see if you recognize the content in the file.
+
+
+## Exercises
+
+Below is some additional practice:
+
+1. Load the `cars.csv` file found in the data folder into a data frame variable called `cars`.
+2. Inspect the first 6 rows of the `cars` data frame. What is the third value under the column `cyl`?
+3. Reassign the variable `cars` to a data frame containing all rows and columns of the `cars` data frame **except for** for the `model` column.
+4. Using only one line of code, print the value of the 12th observation in the `cyl` column.
+5. Calculate the mean of the `mpg` column. Print it out.
+6. Create a new column called `mpg.centered` which is a mean-centered version of the `mpg` column.
+7. Subset the data frame for observations where the mpg is above the mean. 
+8. Repeat **7** but only return the `mpg`, `cyl`, `hp`, and `wt` columns.
+9. Repeat **8** but include the additional filtering condition that `hp` must be greater than or equal to 100. Save this subset to a variable called `vroom_vroom`.
+10. Write the data frame `vroom_vroom` to a CSV file with a name of your choosing.
+
+
