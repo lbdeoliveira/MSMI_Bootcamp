@@ -19,6 +19,7 @@ See the sections below for links to the relevant course material.
 * [R Tutorial](https://www.tutorialspoint.com/r/index.htm)
 * [R Programming (Johns Hopkins on Coursera)](https://www.coursera.org/learn/r-programming)
 * [Quick R by DataCamp](https://www.statmethods.net)
+* [Tidy data & the tidyverse](https://towardsdatascience.com/what-is-tidy-data-d58bb9ad2458)
 
 ## Intro to Stats
 
