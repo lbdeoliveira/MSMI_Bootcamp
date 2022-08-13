@@ -11,7 +11,7 @@ This repository contains course material for the MSMI summer bootcamp. See the s
 * [Lecture slides](https://www.google.com)
 * [R Script](https://www.google.com)
 * [R Markdown Notebook](https://www.google.com)
-* [Data](https://www.google.com)
+* [Data](https://github.com/lbdeoliveira/MSMI_Bootcamp/tree/main/data)
 
 ## Intro to Stats
 
