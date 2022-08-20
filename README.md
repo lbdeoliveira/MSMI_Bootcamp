@@ -23,4 +23,5 @@ See the sections below for links to the relevant course material.
 
 ## Intro to Stats
 
-In progress!
+* [Lecture slides](https://github.com/lbdeoliveira/MSMI_Bootcamp/blob/main/slides/Introduction%20to%20Stats.pdf)
+* [R Script](https://github.com/lbdeoliveira/MSMI_Bootcamp/blob/main/Intro%20to%20Stats.R)
